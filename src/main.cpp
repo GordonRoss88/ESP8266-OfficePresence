@@ -114,6 +114,10 @@ void SerialRxHandle(void)
         char* pEnd = (char*)memchr(&rxBuf[parseOffset], '\n', rxBufOffset - parseOffset);
         if (pEnd)
         {
+          if (pEnd[-1] == '\r')
+          {
+            pEnd--;
+          }
           consumeSize = pEnd - rxBuf;
           ProcessSerialMessage(&rxBuf[parseOffset], pEnd - &rxBuf[parseOffset]);
         } 
